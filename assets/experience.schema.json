@@ -1,0 +1,970 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SkillRouter experience registration v1",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "invocationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,159}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100000
+    },
+    "skillName": {
+      "const": "experience-feedback"
+    },
+    "skillVersion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "activityType": {
+      "type": "string",
+      "enum": [
+        "capture",
+        "evaluate",
+        "aggregate",
+        "retrieve",
+        "design"
+      ]
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "context": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000
+      },
+      "maxItems": 100
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "partial",
+            "failed",
+            "blocked",
+            "pending"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "system_observation",
+            "user_report",
+            "unavailable"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "summary",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "adoption": {
+      "type": "string",
+      "enum": [
+        "not_used",
+        "partial",
+        "full",
+        "unknown"
+      ]
+    },
+    "feedback": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "helpfulness": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "helpful",
+            "partly_helpful",
+            "not_helpful",
+            "harmful",
+            "uncertain",
+            null
+          ]
+        },
+        "reasons": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "solved_problem",
+              "saved_time",
+              "reduced_cost",
+              "avoided_mistakes",
+              "easier_decision",
+              "other"
+            ]
+          },
+          "maxItems": 100
+        },
+        "comment": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "wouldReuse": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "evaluatorId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "submittedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "usage_effect",
+            "expected_applicability",
+            "clarity"
+          ]
+        }
+      },
+      "required": [
+        "helpfulness",
+        "reasons",
+        "comment",
+        "wouldReuse",
+        "evaluatorId",
+        "submittedAt",
+        "scope"
+      ],
+      "additionalProperties": false
+    },
+    "episode": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "identity": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "domain": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "domainConfigVersion": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "parentEpisodeId": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "tenantId": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "accessScope": {
+              "const": "private"
+            },
+            "createdAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            },
+            "updatedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            }
+          },
+          "required": [
+            "id",
+            "revision",
+            "domain",
+            "domainConfigVersion",
+            "parentEpisodeId",
+            "tenantId",
+            "accessScope",
+            "createdAt",
+            "updatedAt"
+          ],
+          "additionalProperties": false
+        },
+        "goal": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "successCriteria": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "description",
+            "successCriteria"
+          ],
+          "additionalProperties": false
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "preActionState": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "platform": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "environmentVersion": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "resources": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "constraints": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "prerequisites": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "preActionState",
+            "platform",
+            "environmentVersion",
+            "resources",
+            "constraints",
+            "prerequisites"
+          ],
+          "additionalProperties": false
+        },
+        "recommendation": {
+          "type": "object",
+          "properties": {
+            "methods": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "methodId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "methodRevision": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "claimIds": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "maxItems": 100
+                  }
+                },
+                "required": [
+                  "methodId",
+                  "methodRevision",
+                  "claimIds"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 100
+            },
+            "content": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "candidateMethods": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "methodId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "methodRevision": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "claimIds": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "maxItems": 100
+                  }
+                },
+                "required": [
+                  "methodId",
+                  "methodRevision",
+                  "claimIds"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 100
+            },
+            "selectionReason": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "recommendedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            },
+            "shownAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            }
+          },
+          "required": [
+            "methods",
+            "content",
+            "candidateMethods",
+            "selectionReason",
+            "recommendedAt",
+            "shownAt"
+          ],
+          "additionalProperties": false
+        },
+        "execution": {
+          "type": "object",
+          "properties": {
+            "adoption": {
+              "type": "string",
+              "enum": [
+                "not_used",
+                "partial",
+                "full",
+                "unknown"
+              ]
+            },
+            "methods": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "methodId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "methodRevision": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "claimIds": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "maxItems": 100
+                  }
+                },
+                "required": [
+                  "methodId",
+                  "methodRevision",
+                  "claimIds"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 100
+            },
+            "steps": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "parameters": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "modifications": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "startedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            },
+            "endedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            }
+          },
+          "required": [
+            "adoption",
+            "methods",
+            "steps",
+            "parameters",
+            "modifications",
+            "startedAt",
+            "endedAt"
+          ],
+          "additionalProperties": false
+        },
+        "outcome": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "observed",
+                "unknown",
+                "conflicting"
+              ]
+            },
+            "basis": {
+              "type": "string",
+              "enum": [
+                "system_observation",
+                "user_report",
+                "unavailable"
+              ]
+            },
+            "summary": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "goalAchieved": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "metrics": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "beforeValue": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "afterValue": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "beforeObservedAt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 40,
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+                  },
+                  "afterObservedAt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 40,
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+                  },
+                  "evidenceIds": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "maxItems": 100
+                  }
+                },
+                "required": [
+                  "name",
+                  "beforeValue",
+                  "afterValue",
+                  "unit",
+                  "beforeObservedAt",
+                  "afterObservedAt",
+                  "evidenceIds"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 100
+            },
+            "observationWindow": {
+              "type": "object",
+              "properties": {
+                "startedAt": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1,
+                  "maxLength": 40,
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+                },
+                "endedAt": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1,
+                  "maxLength": 40,
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+                },
+                "elapsedValue": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0
+                },
+                "elapsedUnit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1,
+                  "maxLength": 50
+                }
+              },
+              "required": [
+                "startedAt",
+                "endedAt",
+                "elapsedValue",
+                "elapsedUnit"
+              ],
+              "additionalProperties": false
+            },
+            "observedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            },
+            "costs": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "sideEffects": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "concurrentChanges": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "basis",
+            "summary",
+            "goalAchieved",
+            "metrics",
+            "observationWindow",
+            "observedAt",
+            "costs",
+            "sideEffects",
+            "concurrentChanges"
+          ],
+          "additionalProperties": false
+        },
+        "feedback": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "helpfulness": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "helpful",
+                "partly_helpful",
+                "not_helpful",
+                "harmful",
+                "uncertain",
+                null
+              ]
+            },
+            "reasons": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string",
+                "enum": [
+                  "solved_problem",
+                  "saved_time",
+                  "reduced_cost",
+                  "avoided_mistakes",
+                  "easier_decision",
+                  "other"
+                ]
+              },
+              "maxItems": 100
+            },
+            "comment": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "wouldReuse": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "evaluatorId": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "submittedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 40,
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "usage_effect",
+                "expected_applicability",
+                "clarity"
+              ]
+            }
+          },
+          "required": [
+            "helpfulness",
+            "reasons",
+            "comment",
+            "wouldReuse",
+            "evaluatorId",
+            "submittedAt",
+            "scope"
+          ],
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "missingFields": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            },
+            "causalEvidence": {
+              "type": [
+                "object",
+                "array",
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "items",
+            "missingFields",
+            "causalEvidence"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "identity",
+        "goal",
+        "context",
+        "recommendation",
+        "execution",
+        "outcome",
+        "feedback",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "recordedAt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "accessScope": {
+      "const": "private"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "invocationId",
+    "revision",
+    "skillName",
+    "skillVersion",
+    "activityType",
+    "goal",
+    "context",
+    "actions",
+    "result",
+    "adoption",
+    "feedback",
+    "episode",
+    "recordedAt",
+    "accessScope"
+  ],
+  "additionalProperties": false
+}

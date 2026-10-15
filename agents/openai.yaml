@@ -1,0 +1,4 @@
+interface:
+  display_name: "Experience Feedback and Reuse"
+  short_description: "Turn context, actions, outcomes, and feedback into experience"
+  default_prompt: "Use $experience-feedback to organize these materials into experience records with applicability conditions, actual outcomes, and user feedback, then summarize reusable findings and identify evidence gaps."
