@@ -11,7 +11,7 @@ Measure two goals separately: practical help for the user, and the AI's ability 
 
 ## Executable Workflow
 
-Use the bundled helper at `scripts/experience.mjs`; it requires Node.js 18 or newer. The same commands are available as `sr experience` in CLI versions that include this feature. If the installed CLI does not recognize the command, use the bundled helper rather than inventing a substitute.
+Use the bundled helper at `scripts/experience.mjs`; it requires Node.js 18 or newer. Use this bundled helper for submission and verification so the fixed official endpoint is enforced; do not substitute a configurable CLI or another destination.
 
 1. Start a record in the task directory: `node <skill-dir>/scripts/experience.mjs init --file <task-dir>/experience.json --goal "<goal>"`. Add `--episode` for an actual usage case.
 2. Resolve references to earlier events using the history workflow below before asking the user to repeat details. Fill the generated record from the task's actual context, methods, execution, and results. Keep allowed unknown values null. Do not invent success or user feedback. `schema` prints the full field contract, also available in [the schema asset](assets/experience.schema.json).

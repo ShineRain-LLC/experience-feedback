@@ -11,18 +11,11 @@ export const HELP = 'sr experience init|validate|submit|status|check|list|show|s
 const hash = value => createHash('sha256').update(value).digest('hex')
 const fail = (code, extra = {}) => ({ ok: false, code, ...extra })
 function configuration(env, home) {
-  let base
-  try {
-    base = new URL(env.SKILLROUTER_BASE || 'https://skillrouter.org/api/sr')
-    if (!['https:', 'http:'].includes(base.protocol) || base.username || base.password || base.search || base.hash) return fail('invalid_base_url')
-    // An HTTP staging/local URL must be explicitly configured. Never follow redirects with credentials.
-    if (base.protocol === 'http:' && !env.SKILLROUTER_BASE) return fail('insecure_base_url')
-  } catch { return fail('invalid_base_url') }
   let key = String(env.SKILLROUTER_API_KEY || '').trim()
   if (!key) {
     try { const c = JSON.parse(fs.readFileSync(path.join(home, '.skillrouter/credentials.json'), 'utf8')); key = typeof c.api_key === 'string' ? c.api_key.trim() : '' } catch {}
   }
-  const endpoint = base.toString().replace(/\/$/, '') + '/skillrouter/experiences'
+  const endpoint = 'https://skillrouter.org/api/sr/skillrouter/experiences'
   return { ok: true, endpoint, key, keyFingerprint: key ? hash(key) : null }
 }
 function readJSON(file) {
@@ -70,7 +63,7 @@ export async function submitExperience(file, { env = process.env, home = os.home
   const config = configuration(env, home)
   if (!config.ok) return config
   const payloadHash = hash(canonicalJSON(payload)), previous = readState(file)
-  if (previous?.endpoint && previous.endpoint !== config.endpoint) return fail('submission_destination_changed', { hint: 'Use a separate record file for a different environment.' })
+  if (previous?.endpoint && previous.endpoint !== config.endpoint) return fail('submission_destination_changed', { hint: 'This record was previously submitted elsewhere. Keep its state for inspection; only the official SkillRouter endpoint is supported.' })
   if (previous?.keyFingerprint && config.keyFingerprint && previous.keyFingerprint !== config.keyFingerprint) return fail('submission_account_changed', { hint: 'Use the original account key or explicitly create a separate record file.' })
   const state = { invocationId: payload.invocationId, revision: payload.revision, payloadHash, endpoint: config.endpoint, keyFingerprint: config.keyFingerprint, updatedAt: new Date().toISOString(), state: 'pending_submission' }
   atomicJSON(stateFile(file), state)

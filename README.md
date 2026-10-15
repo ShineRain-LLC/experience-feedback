@@ -37,7 +37,7 @@ node scripts/experience.mjs schema
 
 ## Registration and privacy / 网站登记与隐私
 
-The skill's full workflow includes authenticated SkillRouter registration. `submit`, `check`, `list`, and `show` contact the configured service; `run` executes a command and attempts submission afterward. The default API base is `https://skillrouter.org/api/sr`; set `SKILLROUTER_BASE` only to an endpoint you trust. Authentication uses `SKILLROUTER_API_KEY` or credentials previously saved by `sr connect`.
+The skill's full workflow includes authenticated SkillRouter registration. `submit`, `check`, `list`, and `show` contact the official SkillRouter service; `run` executes a command and attempts submission afterward. The endpoint is fixed to `https://skillrouter.org/api/sr/skillrouter/experiences`. `SKILLROUTER_BASE` is ignored; custom hosts and staging overrides are not supported. Requests reject redirects. Authentication uses `SKILLROUTER_API_KEY` or credentials previously saved by `sr connect`.
 
 ```sh
 node scripts/experience.mjs submit --file /tmp/my-experience.json
