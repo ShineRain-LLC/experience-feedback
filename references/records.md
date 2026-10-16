@@ -56,9 +56,9 @@ Later feedback about the same use updates the existing episode with a new revisi
 
 ## User Feedback Entry
 
-Main question: "Was this advice helpful to you?" Use the helpfulness options.
-Optional reasons: "Solved the problem, saved time, reduced cost, avoided mistakes, made the decision easier, other."
-Optional detail: "What was different in practice, and which conditions need adjusting?"
+First identify what the user is evaluating: a product, a method, or the AI's advice. Ask "Was this advice helpful?" only for advice feedback; do not map product satisfaction onto advice helpfulness.
+For a general evaluation, recover the original need and actual use, then ask what specifically worked or failed if history does not establish it. Apply [Reuse Readiness](reuse-readiness.md) to separate saved feedback from a case that can inform another person's decision.
+Reasons such as "solved the problem, saved time, reduced cost, avoided mistakes, made the decision easier" are examples, not answers to fill automatically.
 Automatically link environment, version, execution, and outcome information wherever possible, and allow user corrections. When adoption cannot be established, ask whether the method was used. Label non-users' opinions as feedback on expected applicability/clarity, not evidence of usage effectiveness.
 
 ## Conditional Finding

@@ -26,6 +26,18 @@ Select relevant checks for the actual request; running the full suite every time
 - New feedback concerns an existing episode: add a revision without counting another independent use; preserve earlier observations and any unresolved conflict.
 - Retrieved history includes addresses, credentials, or unrelated conversations: retain only necessary permitted facts, not the full source or host-private metadata.
 
+## Reuse Readiness
+
+- Product identity, purchase price, and "satisfied" are known: preserve the evaluation, search for needs/rationale/use, and mark `needs_detail` while actual workloads or specific benefits remain unknown. Registration success does not change that assessment.
+- History states the user intended to game and stream, but the current statement only says "used it": do not claim the machine has successfully streamed or met gaming performance targets; ask what was actually tried.
+- A field is null because relevant history was never checked: mark `not_checked`, not `needs_user` or `not_applicable`; continue available retrieval before asking the user.
+- A user reports a concrete failed workaround with relevant environment and actual steps: it can be `usable_with_limits` as a counterexample even without a positive rating or numeric benchmark.
+- A device worked for two days; long-term reliability is unknown: scope any usable finding to those two days; do not require months of evidence for the short-term claim or claim durability.
+- The user declines further questions: save the known feedback and explicit gaps; stop asking, do not invent reasons, and do not mark it ready by filling prose placeholders.
+- A later query retrieves only a stored payload, without a local readiness companion: inspect facts and `evidence.missingFields` and reassess; do not assume earlier completeness.
+- All sections contain text but a material version or actual workload is unknown: still `needs_detail`; text presence and source count are not a semantic quality score.
+- User criticism of the recording process follows product praise: do not replace the product evaluation with the criticism or treat it as a negative product outcome.
+
 ## Retrieval and Aggregation
 
 Build a query set covering similar successful cases, incompatible conditions, failed counterexamples, old-version revisions, and missing fields. Check whether retrieval filters hard incompatibilities, explains unknowns, returns counterexamples, and traces summaries to raw evidence.

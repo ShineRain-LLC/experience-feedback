@@ -22,7 +22,9 @@ Ask your agent, for example:
 
 > 使用 experience-feedback，记录我对之前购买的主机的反馈：现在用着挺满意。先查可访问的历史记录确认是哪台；找不到的信息留空，不要推断性能或我对选购建议的评价。
 
-The agent should retrieve relevant accessible context before asking you to repeat it, link only a reliably identified event, and preserve the scope of your evaluation. Explicit instructions not to search take precedence. Missing attachments do not invalidate a user report.
+The agent should retrieve relevant accessible context before asking you to repeat it, link only a reliably identified event, and preserve the scope of your evaluation. It reviews the original need, selection rationale, actual use, concrete results, and limits; then asks only material questions that history cannot answer. Explicit instructions not to search or ask questions take precedence. Missing attachments do not invalidate a user report.
+
+**Saved does not mean ready to recommend.** The agent separately reports "feedback saved; needs detail" or "usable for this limited decision", with gaps and evidence. It keeps a local `<record>.readiness.json` assessment and puts relevant gaps into the existing episode record. This is an agent workflow; the hosted API checks structure and persistence, not semantic usefulness. See [reuse readiness](references/reuse-readiness.md).
 
 For a local draft:
 
@@ -54,6 +56,7 @@ Records use **private account scope**. Publishing this skill does not publish an
 - [Record structures](references/records.md) and [episode template](references/episode-template.md).
 - [Aggregation and retrieval](references/aggregation-retrieval.md): applicability, versions, sample counts, counterexamples.
 - [Validation scenarios](references/validation.md): behavioral checks and failure boundaries.
+- [Reuse readiness](references/reuse-readiness.md): evidence-backed completion, targeted questions, and limits on using sparse feedback.
 - `assets/experience.schema.json`: portable registration contract.
 - `scripts/experience.mjs`: local validation and authenticated submission helper.
 
